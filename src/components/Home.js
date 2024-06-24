@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
 import useFetch from "../useFetch";
 
 const Home = () => {
 
 
-  const {blogs, pending, error} = useFetch("http://localhost:8000/blogs")
-
-
-
-
+  const {blogs, pending, error} = useFetch("http://localhost:8000/blogss")
   return (
     <div className="home">
       {error && <div>{error}</div>}

@@ -6,35 +6,40 @@ const useFetch = (url)=>{
     const [pending, setPending] = useState(true)
     const [error, setError] = useState(null)
 
-    const handleDelete = (id)=>{
-        const newBlogs = blogs.filter(blog=>blog.id!==id)
-        setBlogs(newBlogs)
-      }
+    // const handleDelete = (id)=>{
+    //     const newBlogs = blogs.filter(blog=>blog.id!==id)
+    //     setBlogs(newBlogs)
+    //   }
 
     useEffect(()=>{
+
+      const abortCtrl = new AbortController();
         setTimeout(() => {
-          fetch(url)
+          fetch(url, {signal:abortCtrl.signal})
           .then(res=>{
             if(!res.ok){
               throw Error("res not ok")
             }
-            console.log(res)
             return res.json()
           })
           .then((data)=>{
-            console.log("use effect called")
-            setTimeout(() => {
-              console.log("inside settimeout")
+            // setTimeout(() => {
               setBlogs(data)
               setPending(false)
               setError(null)
-            }, 500);
+            // }, 500);
           })
           .catch(err=>{
-            setPending(false)
-            setError(err.message)
+            if (err.name==="AbortError"){
+              console.log("abort error" + err.name)
+            }else{
+              setPending(false)
+              setError(err.message)
+            }
           })
-        }, 1000);
+        }, 2000);
+
+        return ()=>abortCtrl.abort();
       },[])
 
       return {blogs, pending, error}
