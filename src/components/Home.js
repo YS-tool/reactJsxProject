@@ -4,7 +4,7 @@ import useFetch from "../useFetch";
 const Home = () => {
 
 
-  const {blogs, pending, error} = useFetch("http://localhost:8000/blogss")
+  const {blogs, pending, error} = useFetch("http://localhost:8000/blogs")
   return (
     <div className="home">
       {error && <div>{error}</div>}
