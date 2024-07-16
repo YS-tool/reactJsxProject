@@ -13,6 +13,7 @@ const Navbar = () => {
                 }}>create</Link>
                 <Link to="/">edit</Link>
                 <Link to="/">delete</Link>
+                <Link to="/interview">InterviewList</Link>
             </div>
         </nav>
      );
